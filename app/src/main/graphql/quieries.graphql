@@ -1,0 +1,122 @@
+# Write your query or mutation here
+query FetchCountries {
+    fetchCountries {
+        emoji
+        id
+        title
+    }
+}
+
+query Languages {
+    languages {
+        id
+        title
+    }
+}
+
+query FetchAdSources {
+    fetchAdSources {
+        id
+        title
+    }
+}
+
+query FetchLeadIntentionTypes {
+    fetchLeadIntentionTypes {
+        id
+        title
+    }
+}
+
+query FetchLeads {
+    fetchLeads(pagination:{
+        cursor: "0"
+        take: 10
+    }) {
+        cursor
+        data {
+            firstName
+            secondName
+            intention {
+                id
+                title
+            }
+            adSource {
+                id
+                title
+            }
+            country {
+                id
+                emoji
+                title
+            }
+            languages {
+                id
+                title
+            }
+            avatar {
+                thumbnail
+            }
+            color {
+                main
+                secondary
+                title
+            }
+        }
+        totalCount
+    }
+}
+
+mutation CreateLead(
+    $phoneNumber: String!,
+    $countryId: Int!,
+    $firstName: String!,
+    $secondName: String!,
+    $intentionId: Int!,
+    $languageIds: [Int!]!,
+    $adSource: Int!,
+) {
+    createLead(params: {
+        contacts: [
+            {
+                phone: $phoneNumber
+            }
+        ]
+        countryId: $countryId
+        firstName: $firstName
+        secondName: $secondName
+        intentionId: $intentionId
+        languageIds: $languageIds
+        leadSourceId: $adSource
+    }) {
+        data {
+            firstName
+            secondName
+            intention {
+                id
+                title
+            }
+            adSource {
+                id
+                title
+            }
+            country {
+                id
+                emoji
+                title
+            }
+            languages {
+                id
+                title
+            }
+            avatar {
+                thumbnail
+            }
+            color {
+                main
+                secondary
+                title
+            }
+        }
+    }
+}
