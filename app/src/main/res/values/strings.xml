@@ -8,6 +8,8 @@
     <string name="menu_more">More</string>
 
     <string name="header_leads">Leads</string>
+    <string name="header_createLead">Create lead</string>
+
     <string name="errors_failed">Request failed\n%s</string>
 
     <string name="addLeadScreen_firstNamePlaceholder">Ex: John</string>
