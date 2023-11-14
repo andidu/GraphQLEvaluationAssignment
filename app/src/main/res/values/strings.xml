@@ -16,4 +16,6 @@
     <string name="addLeadScreen_firstName">First name</string>
     <string name="addLeadScreen_selectPlaceholder">Select</string>
     <string name="addLeadScreen_language">Language</string>
+    <string name="menu_cancel">Cancel</string>
+    <string name="menu_save">Save</string>
 </resources>
