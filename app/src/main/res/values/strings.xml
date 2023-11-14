@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">GraphQL Evaluation Assignment</string>
+
+    <string name="menu_home">Home</string>
+    <string name="menu_phone">Calls</string>
+    <string name="menu_messages">Chat</string>
+    <string name="menu_users">Leads</string>
+    <string name="menu_more">More</string>
 </resources>
