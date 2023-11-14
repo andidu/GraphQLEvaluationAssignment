@@ -8,29 +8,50 @@ import com.adorastudios.graphqlevaluationassignment.com.adorastudios.graphqleval
 import com.adorastudios.graphqlevaluationassignment.com.adorastudios.graphqlevaluationassignment.LanguagesQuery
 import com.adorastudios.graphqlevaluationassignment.data.network.LeadsApi
 import com.adorastudios.graphqlevaluationassignment.domain.LeadRepository
-import com.apollographql.apollo3.api.ApolloResponse
 
 class LeadRepositoryImpl(
     private val api: LeadsApi,
 ) : LeadRepository {
-    override suspend fun queryLeads(): ApolloResponse<FetchLeadsQuery.Data> {
-        return api.getApolloClient().query(FetchLeadsQuery()).execute()
+    override suspend fun queryLeads(): Result<FetchLeadsQuery.Data> {
+        return try {
+            Result.success(api.getApolloClient().query(FetchLeadsQuery()).execute().data!!)
+        } catch (e: Exception) {
+            Result.failure(e)
+        }
     }
 
-    override suspend fun queryLanguages(): ApolloResponse<LanguagesQuery.Data> {
-        return api.getApolloClient().query(LanguagesQuery()).execute()
+    override suspend fun queryLanguages(): Result<LanguagesQuery.Data> {
+        return try {
+            Result.success(api.getApolloClient().query(LanguagesQuery()).execute().data!!)
+        } catch (e: Exception) {
+            Result.failure(e)
+        }
     }
 
-    override suspend fun queryCountries(): ApolloResponse<FetchCountriesQuery.Data> {
-        return api.getApolloClient().query(FetchCountriesQuery()).execute()
+    override suspend fun queryCountries(): Result<FetchCountriesQuery.Data> {
+        return try {
+            Result.success(api.getApolloClient().query(FetchCountriesQuery()).execute().data!!)
+        } catch (e: Exception) {
+            Result.failure(e)
+        }
     }
 
-    override suspend fun queryAdSources(): ApolloResponse<FetchAdSourcesQuery.Data> {
-        return api.getApolloClient().query(FetchAdSourcesQuery()).execute()
+    override suspend fun queryAdSources(): Result<FetchAdSourcesQuery.Data> {
+        return try {
+            Result.success(api.getApolloClient().query(FetchAdSourcesQuery()).execute().data!!)
+        } catch (e: Exception) {
+            Result.failure(e)
+        }
     }
 
-    override suspend fun queryIntentions(): ApolloResponse<FetchLeadIntentionTypesQuery.Data> {
-        return api.getApolloClient().query(FetchLeadIntentionTypesQuery()).execute()
+    override suspend fun queryIntentions(): Result<FetchLeadIntentionTypesQuery.Data> {
+        return try {
+            Result.success(
+                api.getApolloClient().query(FetchLeadIntentionTypesQuery()).execute().data!!,
+            )
+        } catch (e: Exception) {
+            Result.failure(e)
+        }
     }
 
     override suspend fun mutationLead(
@@ -41,17 +62,23 @@ class LeadRepositoryImpl(
         intentionId: Int,
         languageIds: List<Int>,
         adSource: Int,
-    ): ApolloResponse<CreateLeadMutation.Data> {
-        return api.getApolloClient().mutation(
-            CreateLeadMutation(
-                phoneNumber = phoneNumber,
-                countryId = countryId,
-                firstName = firstName,
-                secondName = secondName,
-                intentionId = intentionId,
-                languageIds = languageIds,
-                adSource = adSource,
-            ),
-        ).execute()
+    ): Result<CreateLeadMutation.Data> {
+        return try {
+            Result.success(
+                api.getApolloClient().mutation(
+                    CreateLeadMutation(
+                        phoneNumber = phoneNumber,
+                        countryId = countryId,
+                        firstName = firstName,
+                        secondName = secondName,
+                        intentionId = intentionId,
+                        languageIds = languageIds,
+                        adSource = adSource,
+                    ),
+                ).execute().data!!,
+            )
+        } catch (e: Exception) {
+            Result.failure(e)
+        }
     }
 }

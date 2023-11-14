@@ -6,14 +6,13 @@ import com.adorastudios.graphqlevaluationassignment.com.adorastudios.graphqleval
 import com.adorastudios.graphqlevaluationassignment.com.adorastudios.graphqlevaluationassignment.FetchLeadIntentionTypesQuery
 import com.adorastudios.graphqlevaluationassignment.com.adorastudios.graphqlevaluationassignment.FetchLeadsQuery
 import com.adorastudios.graphqlevaluationassignment.com.adorastudios.graphqlevaluationassignment.LanguagesQuery
-import com.apollographql.apollo3.api.ApolloResponse
 
 interface LeadRepository {
-    suspend fun queryLeads(): ApolloResponse<FetchLeadsQuery.Data>
-    suspend fun queryLanguages(): ApolloResponse<LanguagesQuery.Data>
-    suspend fun queryCountries(): ApolloResponse<FetchCountriesQuery.Data>
-    suspend fun queryAdSources(): ApolloResponse<FetchAdSourcesQuery.Data>
-    suspend fun queryIntentions(): ApolloResponse<FetchLeadIntentionTypesQuery.Data>
+    suspend fun queryLeads(): Result<FetchLeadsQuery.Data>
+    suspend fun queryLanguages(): Result<LanguagesQuery.Data>
+    suspend fun queryCountries(): Result<FetchCountriesQuery.Data>
+    suspend fun queryAdSources(): Result<FetchAdSourcesQuery.Data>
+    suspend fun queryIntentions(): Result<FetchLeadIntentionTypesQuery.Data>
     suspend fun mutationLead(
         phoneNumber: String,
         countryId: Int,
@@ -22,5 +21,5 @@ interface LeadRepository {
         intentionId: Int,
         languageIds: List<Int>,
         adSource: Int,
-    ): ApolloResponse<CreateLeadMutation.Data>
+    ): Result<CreateLeadMutation.Data>
 }
