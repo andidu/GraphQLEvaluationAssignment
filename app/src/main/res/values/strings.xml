@@ -6,4 +6,6 @@
     <string name="menu_messages">Chat</string>
     <string name="menu_users">Leads</string>
     <string name="menu_more">More</string>
+
+    <string name="header_leads">Leads</string>
 </resources>
