@@ -7,7 +7,9 @@ import okhttp3.OkHttpClient
 class LeadsApi {
 
     fun getApolloClient(): ApolloClient {
-        val okHttpClient = OkHttpClient.Builder().build()
+        val okHttpClient = OkHttpClient.Builder()
+            .addInterceptor(ApiKeyInterceptor())
+            .build()
         return ApolloClient.Builder()
             .serverUrl("https://rickandmortyapi.com/graphql")
             .okHttpClient(okHttpClient)
