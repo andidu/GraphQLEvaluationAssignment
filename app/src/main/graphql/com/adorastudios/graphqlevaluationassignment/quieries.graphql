@@ -35,6 +35,7 @@ query FetchLeads {
     }) {
         cursor
         data {
+            id
             firstName
             secondName
             intention {

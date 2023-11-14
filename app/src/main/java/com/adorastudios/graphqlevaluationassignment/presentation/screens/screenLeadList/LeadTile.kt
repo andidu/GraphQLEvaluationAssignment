@@ -128,6 +128,7 @@ fun LeadTilePreview() {
             .fillMaxWidth()
             .padding(8.dp),
         lead = FetchLeadsQuery.Data1(
+            id = -1,
             firstName = "Sam",
             secondName = "East",
             intention = FetchLeadsQuery.Intention(
