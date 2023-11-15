@@ -28,10 +28,10 @@ query FetchLeadIntentionTypes {
     }
 }
 
-query FetchLeads {
+query FetchLeads($cursor: String!,$take: Int = 10,) {
     fetchLeads(pagination:{
-        cursor: "0"
-        take: 10
+        cursor: $cursor
+        take: $take
     }) {
         cursor
         data {

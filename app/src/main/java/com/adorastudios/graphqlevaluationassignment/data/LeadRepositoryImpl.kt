@@ -14,7 +14,7 @@ class LeadRepositoryImpl(
 ) : LeadRepository {
     override suspend fun queryLeads(): Result<FetchLeadsQuery.Data> {
         return try {
-            Result.success(api.getApolloClient().query(FetchLeadsQuery()).execute().data!!)
+            Result.success(api.getApolloClient().query(FetchLeadsQuery("")).execute().data!!)
         } catch (e: Exception) {
             Result.failure(e)
         }

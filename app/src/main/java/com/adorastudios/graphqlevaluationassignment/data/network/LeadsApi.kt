@@ -11,7 +11,7 @@ class LeadsApi {
             .addInterceptor(ApiKeyInterceptor())
             .build()
         return ApolloClient.Builder()
-            .serverUrl("https://rickandmortyapi.com/graphql")
+            .serverUrl("http://54.246.238.84:3000/graphql")
             .okHttpClient(okHttpClient)
             .build()
     }

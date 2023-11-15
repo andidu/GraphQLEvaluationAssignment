@@ -102,7 +102,9 @@ fun LeadTile(
                     .clip(CircleShape)
                     .background(
                         lead.color.secondary?.let {
-                            Color(android.graphics.Color.parseColor("#$it"))
+                            Color(
+                                android.graphics.Color.parseColor("#${it.replace("#", "")}"),
+                            )
                         } ?: Color.Transparent,
                     )
                     .padding(horizontal = 8.dp),
@@ -113,7 +115,11 @@ fun LeadTile(
                         fontSize = 12.sp,
                         lineHeight = 24.sp,
                     ),
-                    color = Color(android.graphics.Color.parseColor("#${lead.color.main}")),
+                    color = Color(
+                        android.graphics.Color.parseColor(
+                            "#${lead.color.main.replace("#", "")}",
+                        ),
+                    ),
                 )
             }
         }
