@@ -38,9 +38,11 @@ query FetchLeads($cursor: String!,$take: Int = 10,) {
             id
             firstName
             secondName
-            intention {
+            status {
                 id
                 title
+                color
+                backgroundColor
             }
             adSource {
                 id
@@ -57,11 +59,6 @@ query FetchLeads($cursor: String!,$take: Int = 10,) {
             }
             avatar {
                 path
-            }
-            color {
-                main
-                secondary
-                title
             }
         }
         totalCount
@@ -113,11 +110,6 @@ mutation CreateLead(
             }
             avatar {
                 thumbnail
-            }
-            color {
-                main
-                secondary
-                title
             }
         }
     }

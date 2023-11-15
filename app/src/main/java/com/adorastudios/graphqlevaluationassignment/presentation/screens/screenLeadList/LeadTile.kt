@@ -92,27 +92,29 @@ fun LeadTile(
         ) {
             Box(
                 modifier = Modifier
+                    .height(24.dp)
                     .clip(CircleShape)
                     .background(
-                        lead.color.secondary?.let {
+                        lead.status?.backgroundColor?.let {
                             Color(
                                 android.graphics.Color.parseColor("#${it.replace("#", "")}"),
                             )
                         } ?: Color.Transparent,
                     )
                     .padding(horizontal = 8.dp),
+                contentAlignment = Alignment.Center,
             ) {
                 Text(
-                    text = lead.intention?.title ?: "",
+                    text = lead.status?.title ?: "",
                     style = TextStyle(
                         fontSize = 12.sp,
                         lineHeight = 24.sp,
                     ),
-                    color = Color(
-                        android.graphics.Color.parseColor(
-                            "#${lead.color.main.replace("#", "")}",
-                        ),
-                    ),
+                    color = lead.status?.color?.let {
+                        Color(
+                            android.graphics.Color.parseColor("#${it.replace("#", "")}"),
+                        )
+                    } ?: Color.Transparent,
                 )
             }
         }
@@ -130,9 +132,11 @@ fun LeadTilePreview() {
             id = -1,
             firstName = "Sam",
             secondName = "East",
-            intention = FetchLeadsQuery.Intention(
+            status = FetchLeadsQuery.Status(
                 id = -1,
                 title = "New",
+                color = "#444444",
+                backgroundColor = "#999999",
             ),
             adSource = FetchLeadsQuery.AdSource(
                 id = -1,
@@ -146,11 +150,6 @@ fun LeadTilePreview() {
             languages = listOf(),
             avatar = FetchLeadsQuery.Avatar(
                 path = "https://images.unsplash.com/photo-1493612276216-ee3925520721?q=80&w=3308&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-            ),
-            color = FetchLeadsQuery.Color(
-                main = "276EF1",
-                secondary = "EEF3FE",
-                title = "???",
             ),
         ),
     )
