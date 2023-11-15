@@ -24,9 +24,11 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalLifecycleOwner
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.Lifecycle
 import androidx.navigation.NavController
 import com.adorastudios.graphqlevaluationassignment.R
 import com.adorastudios.graphqlevaluationassignment.presentation.screens.Screens
@@ -39,6 +41,20 @@ fun LeadListScreen(
     navController: NavController,
     viewModel: LeadListViewModel = hiltViewModel(),
 ) {
+    val lifecycleState = LocalLifecycleOwner.current.lifecycle.observeAsState()
+    when (lifecycleState.value) {
+        Lifecycle.Event.ON_CREATE -> {}
+        Lifecycle.Event.ON_START -> {}
+        Lifecycle.Event.ON_RESUME -> {
+            viewModel.reload()
+        }
+
+        Lifecycle.Event.ON_PAUSE -> {}
+        Lifecycle.Event.ON_STOP -> {}
+        Lifecycle.Event.ON_DESTROY -> {}
+        Lifecycle.Event.ON_ANY -> {}
+    }
+
     Column(
         modifier = Modifier.fillMaxSize(),
     ) {

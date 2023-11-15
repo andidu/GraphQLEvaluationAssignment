@@ -21,6 +21,7 @@ class LeadListViewModel @Inject constructor(
 
     private var cursor: String = ""
     private var hasMore: Boolean = false
+    private var lastUpdateTime: Long = System.currentTimeMillis()
 
     init {
         loadSomeMore()
@@ -34,6 +35,7 @@ class LeadListViewModel @Inject constructor(
                 getOrNull()?.fetchLeads?.data to exceptionOrNull()?.message
             }
 
+            lastUpdateTime = System.currentTimeMillis()
             withContext(Dispatchers.Main) {
                 if (leads != null) {
                     val displayedLeads =
@@ -51,4 +53,18 @@ class LeadListViewModel @Inject constructor(
             }
         }
     }
+
+    fun reload() {
+        if (System.currentTimeMillis() >= lastUpdateTime + 10.seconds) {
+            cursor = ""
+            _state.value = state.value.copy(
+                loadingState = LoadingState.Loading,
+            )
+            loadSomeMore()
+            lastUpdateTime = System.currentTimeMillis()
+        }
+    }
 }
+
+private val Int.seconds: Long
+    get() = this * 1000L
