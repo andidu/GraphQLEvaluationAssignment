@@ -56,7 +56,7 @@ query FetchLeads($cursor: String!,$take: Int = 10,) {
                 title
             }
             avatar {
-                thumbnail
+                path
             }
             color {
                 main

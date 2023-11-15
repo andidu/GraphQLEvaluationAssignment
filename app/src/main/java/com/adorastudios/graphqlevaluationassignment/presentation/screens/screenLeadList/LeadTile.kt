@@ -42,7 +42,7 @@ fun LeadTile(
             modifier = Modifier
                 .size(40.dp)
                 .clip(CircleShape),
-            model = lead.avatar?.thumbnail,
+            model = lead.avatar?.path,
             contentDescription = null,
             contentScale = ContentScale.Crop,
         ) {
@@ -64,6 +64,7 @@ fun LeadTile(
                             fontSize = 14.sp,
                             lineHeight = 16.41.sp,
                         ),
+                        color = Color(0xff000000),
                     )
                 }
             } else {
@@ -152,7 +153,7 @@ fun LeadTilePreview() {
             ),
             languages = listOf(),
             avatar = FetchLeadsQuery.Avatar(
-                thumbnail = "https://images.unsplash.com/photo-1493612276216-ee3925520721?q=80&w=3308&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+                path = "https://images.unsplash.com/photo-1493612276216-ee3925520721?q=80&w=3308&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
             ),
             color = FetchLeadsQuery.Color(
                 main = "276EF1",
