@@ -8,7 +8,10 @@ import com.adorastudios.graphqlevaluationassignment.com.adorastudios.graphqleval
 import com.adorastudios.graphqlevaluationassignment.com.adorastudios.graphqlevaluationassignment.LanguagesQuery
 
 interface LeadRepository {
-    suspend fun queryLeads(): Result<FetchLeadsQuery.Data>
+    suspend fun queryLeads(
+        cursor: String,
+        take: Int = 10,
+    ): Result<FetchLeadsQuery.Data>
     suspend fun queryLanguages(): Result<LanguagesQuery.Data>
     suspend fun queryCountries(): Result<FetchCountriesQuery.Data>
     suspend fun queryAdSources(): Result<FetchAdSourcesQuery.Data>

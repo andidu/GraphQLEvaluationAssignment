@@ -7,7 +7,11 @@ data class LeadListState(
 )
 
 sealed class LoadingState {
-    data class Loaded(val leads: List<FetchLeadsQuery.Data1>) : LoadingState()
+    data class Loaded(
+        val leads: List<FetchLeadsQuery.Data1>,
+        val hasMore: Boolean,
+    ) : LoadingState()
+
     object Loading : LoadingState()
     data class Failed(val message: String) : LoadingState()
 }

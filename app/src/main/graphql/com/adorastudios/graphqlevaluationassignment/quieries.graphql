@@ -65,6 +65,7 @@ query FetchLeads($cursor: String!,$take: Int = 10,) {
             }
         }
         totalCount
+        hasMore
     }
 }
 

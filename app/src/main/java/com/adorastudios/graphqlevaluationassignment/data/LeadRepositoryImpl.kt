@@ -8,13 +8,18 @@ import com.adorastudios.graphqlevaluationassignment.com.adorastudios.graphqleval
 import com.adorastudios.graphqlevaluationassignment.com.adorastudios.graphqlevaluationassignment.LanguagesQuery
 import com.adorastudios.graphqlevaluationassignment.data.network.LeadsApi
 import com.adorastudios.graphqlevaluationassignment.domain.LeadRepository
+import com.apollographql.apollo3.api.Optional
 
 class LeadRepositoryImpl(
     private val api: LeadsApi,
 ) : LeadRepository {
-    override suspend fun queryLeads(): Result<FetchLeadsQuery.Data> {
+    override suspend fun queryLeads(cursor: String, take: Int): Result<FetchLeadsQuery.Data> {
         return try {
-            Result.success(api.getApolloClient().query(FetchLeadsQuery("")).execute().data!!)
+            Result.success(
+                api.getApolloClient()
+                    .query(FetchLeadsQuery(cursor, Optional.present(take)))
+                    .execute().data!!,
+            )
         } catch (e: Exception) {
             Result.failure(e)
         }

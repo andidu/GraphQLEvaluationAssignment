@@ -1,9 +1,5 @@
-@file:OptIn(ExperimentalAnimationApi::class)
-
 package com.adorastudios.graphqlevaluationassignment.presentation.screens.screenLeadList
 
-import androidx.compose.animation.AnimatedContent
-import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.interaction.MutableInteractionSource
@@ -17,8 +13,12 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.rounded.Refresh
+import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -67,56 +67,69 @@ fun LeadListScreen(
                 .fillMaxWidth()
                 .weight(1f),
         ) {
-            AnimatedContent(
-                modifier = Modifier.fillMaxSize(),
-                targetState = viewModel.state.value.loadingState,
-                label = "",
-            ) { targetState ->
-                when (targetState) {
-                    is LoadingState.Failed -> {
-                        Box(
-                            modifier = Modifier.fillMaxSize(),
-                            contentAlignment = Alignment.Center,
+            when (val targetState = viewModel.state.value.loadingState) {
+                is LoadingState.Failed -> {
+                    Box(
+                        modifier = Modifier.fillMaxSize(),
+                        contentAlignment = Alignment.Center,
+                    ) {
+                        Text(
+                            text = stringResource(
+                                id = R.string.errors_failed,
+                                targetState.message,
+                            ),
+                        )
+                    }
+                }
+
+                is LoadingState.Loaded -> {
+                    LazyColumn(
+                        modifier = Modifier.fillMaxSize(),
+                        contentPadding = PaddingValues(
+                            top = 8.dp,
+                            bottom = 116.dp,
+                            start = 8.dp,
+                            end = 8.dp,
+                        ),
+                        verticalArrangement = Arrangement.spacedBy(8.dp),
+                    ) {
+                        items(
+                            items = targetState.leads,
+                            key = { it.id },
                         ) {
-                            Text(
-                                text = stringResource(
-                                    id = R.string.errors_failed,
-                                    targetState.message,
-                                ),
+                            LeadTile(
+                                modifier = Modifier
+                                    .fillMaxWidth()
+                                    .clickable {
+                                        // navController.navigate()
+                                    }
+                                    .padding(8.dp),
+                                lead = it,
                             )
                         }
-                    }
-
-                    is LoadingState.Loaded -> {
-                        LazyColumn(
-                            modifier = Modifier.fillMaxSize(),
-                            contentPadding = PaddingValues(
-                                top = 8.dp,
-                                bottom = 116.dp,
-                                start = 8.dp,
-                                end = 8.dp,
-                            ),
-                            verticalArrangement = Arrangement.spacedBy(8.dp),
-                        ) {
-                            items(
-                                items = targetState.leads,
-                                key = { it.id },
-                            ) {
-                                LeadTile(
+                        if (targetState.hasMore) {
+                            item {
+                                LaunchedEffect(key1 = true) {
+                                    viewModel.loadSomeMore()
+                                }
+                                Box(
                                     modifier = Modifier
                                         .fillMaxWidth()
-                                        .clickable {
-                                            // navController.navigate()
-                                        }
-                                        .padding(8.dp),
-                                    lead = it,
-                                )
+                                        .padding(16.dp),
+                                    contentAlignment = Alignment.Center,
+                                ) {
+                                    Icon(
+                                        imageVector = Icons.Rounded.Refresh,
+                                        contentDescription = null,
+                                        tint = Color(0xff000000),
+                                    )
+                                }
                             }
                         }
                     }
+                }
 
-                    LoadingState.Loading -> {
-                    }
+                LoadingState.Loading -> {
                 }
             }
 
