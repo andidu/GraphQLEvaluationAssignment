@@ -13,6 +13,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -23,12 +24,23 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.adorastudios.graphqlevaluationassignment.R
 import com.adorastudios.graphqlevaluationassignment.presentation.screens.screenAddLead.inputField.InputField
+import kotlinx.coroutines.flow.collectLatest
 
 @Composable
 fun AddLeadScreen(
     navController: NavController,
     viewModel: AddLeadViewModel = hiltViewModel(),
 ) {
+    LaunchedEffect(key1 = true) {
+        viewModel.uiEventFlow.collectLatest { event ->
+            when (event) {
+                AddLeadUiEvent.Back -> {
+                    navController.popBackStack()
+                }
+            }
+        }
+    }
+
     Column(
         modifier = Modifier.fillMaxSize(),
     ) {

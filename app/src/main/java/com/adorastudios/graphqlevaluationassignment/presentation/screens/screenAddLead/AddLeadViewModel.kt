@@ -12,6 +12,8 @@ import com.adorastudios.graphqlevaluationassignment.presentation.screens.screenA
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
+import kotlinx.coroutines.flow.MutableSharedFlow
+import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
@@ -23,6 +25,9 @@ class AddLeadViewModel @Inject constructor(
 ) : ViewModel() {
     private val _state: MutableState<AddLeadState> = mutableStateOf(AddLeadState())
     val state: State<AddLeadState> = _state
+
+    private val _uiEventFlow: MutableSharedFlow<AddLeadUiEvent> = MutableSharedFlow()
+    val uiEventFlow = _uiEventFlow.asSharedFlow()
 
     init {
         viewModelScope.launch(Dispatchers.IO) {
@@ -115,6 +120,10 @@ class AddLeadViewModel @Inject constructor(
                             toaster.show(R.string.addLeadScreen_leadCreated)
                         } else {
                             toaster.show(R.string.addLeadScreen_error)
+                        }
+                    }.invokeOnCompletion {
+                        viewModelScope.launch {
+                            _uiEventFlow.emit(AddLeadUiEvent.Back)
                         }
                     }
                 } else {
