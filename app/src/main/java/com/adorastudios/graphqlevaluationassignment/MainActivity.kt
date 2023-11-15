@@ -11,6 +11,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.adorastudios.graphqlevaluationassignment.presentation.screens.Screens
+import com.adorastudios.graphqlevaluationassignment.presentation.screens.screenAddLead.AddLeadScreen
 import com.adorastudios.graphqlevaluationassignment.presentation.screens.screenLeadList.LeadListScreen
 import com.adorastudios.graphqlevaluationassignment.presentation.theme.GraphQLEvaluationAssignmentTheme
 import dagger.hilt.android.AndroidEntryPoint
@@ -35,6 +36,11 @@ class MainActivity : ComponentActivity() {
                             route = Screens.LeadListScreen.route,
                         ) {
                             LeadListScreen(navController = navController)
+                        }
+                        composable(
+                            route = Screens.AddLeadScreen.route,
+                        ) {
+                            AddLeadScreen(navController = navController)
                         }
                     }
                 }

@@ -29,6 +29,7 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.adorastudios.graphqlevaluationassignment.R
+import com.adorastudios.graphqlevaluationassignment.presentation.screens.Screens
 import com.adorastudios.graphqlevaluationassignment.presentation.screens.screenLeadList.header.Action
 import com.adorastudios.graphqlevaluationassignment.presentation.screens.screenLeadList.header.HeaderTile
 import com.adorastudios.graphqlevaluationassignment.presentation.screens.screenLeadList.menu.MenuTile
@@ -49,7 +50,9 @@ fun LeadListScreen(
             actions = listOf(
                 Action(
                     iconId = R.drawable.header_user,
-                    action = {},
+                    action = {
+                        navController.navigate(Screens.AddLeadScreen.route)
+                    },
                     textDescription = null,
                 ),
                 Action(

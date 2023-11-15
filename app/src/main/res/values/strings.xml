@@ -18,4 +18,15 @@
     <string name="addLeadScreen_language">Language</string>
     <string name="menu_cancel">Cancel</string>
     <string name="menu_save">Save</string>
+
+    <string name="addLeadScreen_secondName">Last name</string>
+    <string name="addLeadScreen_secondNamePlaceholder">Ex: Doe</string>
+    <string name="addLeadScreen_leadIntention">Lead intention</string>
+    <string name="addLeadScreen_adSource">AD Source</string>
+    <string name="addLeadScreen_country">Country</string>
+    <string name="addLeadScreen_phoneNumber">Phone number</string>
+    <string name="addLeadScreen_phoneNumberPlaceholder">+998 97 344 66 77</string>
+    <string name="addLeadScreen_someFieldsAreEmpty">Some fields are empty</string>
+    <string name="addLeadScreen_leadCreated">Lead created</string>
+    <string name="addLeadScreen_error">Error</string>
 </resources>
