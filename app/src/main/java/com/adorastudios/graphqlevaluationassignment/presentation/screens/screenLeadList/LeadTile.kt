@@ -22,7 +22,6 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import coil.compose.AsyncImage
 import coil.compose.AsyncImagePainter
 import coil.compose.SubcomposeAsyncImage
 import coil.compose.SubcomposeAsyncImageContent
@@ -85,14 +84,7 @@ fun LeadTile(
                 color = Color(0xff212121),
                 maxLines = 1,
             )
-            AsyncImage(
-                modifier = Modifier
-                    .size(16.dp)
-                    .clip(CircleShape),
-                model = lead.country?.emoji,
-                contentDescription = lead.country?.title,
-                contentScale = ContentScale.Crop,
-            )
+            Text(text = lead.country?.emoji ?: "")
         }
         Box(
             modifier = Modifier.height(44.dp),
